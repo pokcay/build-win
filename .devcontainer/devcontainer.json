@@ -1,0 +1,23 @@
+{
+  "name": "build-win",
+  "image": "mcr.microsoft.com/devcontainers/ruby:3.3",
+  "features": {
+    "ghcr.io/devcontainers/features/node:1": {
+      "version": "22"
+    },
+    "ghcr.io/devcontainers/features/postgresql:1": {
+      "version": "16"
+    }
+  },
+  "postCreateCommand": "bin/setup && npm install",
+  "forwardPorts": [3000, 3036],
+  "portsAttributes": {
+    "3000": { "label": "Rails" },
+    "3036": { "label": "Vite" }
+  },
+  "remoteEnv": {
+    "DATABASE_HOST": "localhost",
+    "DATABASE_USER": "postgres",
+    "DATABASE_PASSWORD": "postgres"
+  }
+}

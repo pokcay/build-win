@@ -20,25 +20,29 @@ default: &default
   host: <%= ENV.fetch("DATABASE_HOST") { "localhost" } %>
   port: <%= ENV.fetch("DATABASE_PORT") { 5432 } %>
 
+# APP_NAME controls the database prefix. Set it in .env (e.g. APP_NAME=bookmarky).
+# Falls back to "myapp" so cloning the template without configuration still works.
+<% app_name = ENV.fetch("APP_NAME") { "myapp" }.downcase.gsub(/[^a-z0-9]/, "_") %>
+
 development:
   <<: *default
-  database: build_new_development
+  database: <%= "#{app_name}_development" %>
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
 # Do not set this db to the same as development or production.
 test:
   <<: *default
-  database: build_new_test
+  database: <%= "#{app_name}_test" %>
 
 # Solid Queue, Solid Cache, and Solid Cable all share this single primary database.
 # In production, set DATABASE_URL or override the connection settings via env vars.
 staging:
   <<: *default
-  database: build_new_staging
+  database: <%= "#{app_name}_staging" %>
   url: <%= ENV["DATABASE_URL"] %>
 
 production:
   <<: *default
-  database: build_new_production
+  database: <%= "#{app_name}_production" %>
   url: <%= ENV["DATABASE_URL"] %>

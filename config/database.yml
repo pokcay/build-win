@@ -21,8 +21,8 @@ default: &default
   port: <%= ENV.fetch("DATABASE_PORT") { 5432 } %>
 
 # APP_NAME controls the database prefix. Set it in .env (e.g. APP_NAME=bookmarky).
-# Falls back to "myapp" so cloning the template without configuration still works.
-<% app_name = ENV.fetch("APP_NAME") { "myapp" }.downcase.gsub(/[^a-z0-9]/, "_") %>
+# Falls back to the project folder name so cloning works without any configuration.
+<% app_name = ENV.fetch("APP_NAME") { File.basename(Dir.pwd) }.downcase.gsub(/[^a-z0-9]/, "_") %>
 
 development:
   <<: *default

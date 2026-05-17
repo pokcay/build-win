@@ -20,9 +20,7 @@ FileUtils.chdir APP_ROOT do
   puts "\n== Copying sample files =="
   unless File.exist?(".env")
     FileUtils.cp ".env.example", ".env"
-    puts "Created .env from .env.example — set APP_NAME before running setup again if this is a new project."
-    puts "Edit .env now, then re-run bin/setup."
-    exit 1
+    puts "Created .env from .env.example."
   end
 
   puts "\n== Preparing database =="
